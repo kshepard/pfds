@@ -1,0 +1,28 @@
+name:                pfds
+version:             0.1.0.0
+github:              kshepard/pfds
+license:             MIT
+author:              Kenneth Shepard
+maintainer:          kshepard@gmail.com
+copyright:           2018 Kenneth Shepard
+
+extra-source-files:
+- README.md
+
+category:            Fun
+synopsis:            Solutions to exercises in Purely Functional Data Structures
+description:         See the README at <https://github.com/kshepard/pfds#readme>
+
+ghc-options:
+  -fwarn-unused-imports
+  -fwarn-unused-binds
+  -fwarn-name-shadowing
+  -fwarn-unused-matches
+  -fwarn-incomplete-patterns
+  -fwarn-incomplete-uni-patterns
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
