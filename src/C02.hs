@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# Language TypeApplications #-}
+{-# LANGUAGE TypeApplications #-}
 
 module C02 where
 
