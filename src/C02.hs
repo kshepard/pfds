@@ -11,7 +11,7 @@ import           Data.Maybe                     ( fromMaybe )
 -- suffixes [1,2,3,4] = [[1,2,3,4],[2,3,4],[3,4],[4],[]]
 
 suffixes :: [a] -> [[a]]
-suffixes []         = [[]]
+suffixes []         = []
 suffixes xs@(_ : t) = xs : suffixes t
 
 -- Implementation of Set/UnbalancedSet
