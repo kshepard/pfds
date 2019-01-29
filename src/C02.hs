@@ -37,11 +37,29 @@ instance Ord a => Set UnbalancedSet a where
     | x > y     = T a y (insert x b)
     | otherwise = s
 
+-- 2.2 - Rewrite member to take no more than d + 1 comparisons by keeping track
+-- of a candidate element that might be equal to the query element and checking
+-- for equality only when you hit the bottom of the tree.
+
+member22 :: Ord a => a -> UnbalancedSet a -> Bool
+member22 = go Nothing
+ where
+  go Nothing  _ E = False
+  go (Just c) x E = c == x
+  go c x (T a y b) | x <= y    = go (Just y) x a
+                   | otherwise = go c x b
+
 main :: IO ()
 main = do
+  putStrLn "2.1:"
   print $ suffixes @Int [1, 2, 3, 4]
 
   let s = insert "sit" $ insert "dolor" $ insert "ipsum" $ insert "lorem" E
+  putStrLn "\nSet/UnbalancedSet:"
   print s
   print $ member "dolor" s
   print $ member "should_not_exist" s
+
+  putStrLn "\n2.2:"
+  print $ member22 "dolor" s
+  print $ member22 "should_not_exist" s
