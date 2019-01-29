@@ -4,6 +4,8 @@
 
 module C02 where
 
+import           Data.Maybe                     ( fromMaybe )
+
 -- 2.1 - Write a function suffixes that takes a list xs and returns a list of
 -- all the suffixes of xs in decreasing order of length. For example:
 -- suffixes [1,2,3,4] = [[1,2,3,4],[2,3,4],[3,4],[4],[]]
@@ -49,6 +51,18 @@ member22 = go Nothing
   go c x (T a y b) | x <= y    = go (Just y) x a
                    | otherwise = go c x b
 
+-- 2.3 - Inserting an existing element into a binary search tree copies the
+-- entire search path even though the copied nodes are indistinguishable from
+-- the originals. Rewrite insert using exceptions to avoid this copying.
+
+insert23 :: Ord a => a -> UnbalancedSet a -> UnbalancedSet a
+insert23 x s = fromMaybe s $ go s
+ where
+  go E = Just $ T E x E
+  go (T a y b) | x < y     = T <$> go a <*> pure y <*> pure b
+               | x > y     = T <$> pure a <*> pure y <*> go b
+               | otherwise = Nothing
+
 main :: IO ()
 main = do
   putStrLn "2.1:"
@@ -63,3 +77,12 @@ main = do
   putStrLn "\n2.2:"
   print $ member22 "dolor" s
   print $ member22 "should_not_exist" s
+
+  putStrLn "\n2.3:"
+  let s23 =
+        insert23 "dolor"
+          $ insert23 "sit"
+          $ insert23 "dolor"
+          $ insert23 "ipsum"
+          $ insert23 "lorem" E
+  print s23
